@@ -6,6 +6,7 @@ from controllers import character_controller, login_controller
 from middleware.api_gateway_middleware import ApiGatewayAuthMiddleware
 import json
 from config import settings
+from middleware.auth_middleware import AuthMiddleware
 
 app = FastAPI()
 
@@ -18,8 +19,7 @@ if settings.app_env == "local":
         allow_methods=["*"],
         allow_headers=["*"]
     )
-
-app.add_middleware(ApiGatewayAuthMiddleware)
+#app.add_middleware(ApiGatewayAuthMiddleware)
 
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
