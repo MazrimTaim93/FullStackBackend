@@ -3,18 +3,23 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from controllers import character_controller, login_controller
+from middleware.api_gateway_middleware import ApiGatewayAuthMiddleware
 import json
+from config import settings
+from middleware.auth_middleware import AuthMiddleware
 
 app = FastAPI()
 
 #app.add_middleware(AuthMiddleware)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins = ["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
+if settings.app_env == "local":
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins = settings.allow_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"]
+    )
+app.add_middleware(ApiGatewayAuthMiddleware)
 
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
