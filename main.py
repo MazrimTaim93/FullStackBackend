@@ -19,14 +19,12 @@ if settings.app_env == "local":
         allow_methods=["*"],
         allow_headers=["*"]
     )
-@app.middleware("http")
-async def check_client_host(request: Request, call_next):
-    client_host = request.headers.get("host")  # Get the Host header
+
+@app.on_event("startup")
+async def apply_api_gateway_auth_middleware():
+    client_host = settings.client_host  # Use a proper check (like config or env var)
     if "localhost" not in client_host and "127.0.0.1" not in client_host:
         app.add_middleware(ApiGatewayAuthMiddleware)
-    
-    response = await call_next(request)
-    return response
 
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
