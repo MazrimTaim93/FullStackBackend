@@ -1,5 +1,5 @@
 from math import log
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from controllers import character_controller, login_controller
@@ -19,7 +19,14 @@ if settings.app_env == "local":
         allow_methods=["*"],
         allow_headers=["*"]
     )
-app.add_middleware(ApiGatewayAuthMiddleware)
+@app.middleware("http")
+async def check_client_host(request: Request, call_next):
+    client_host = request.headers.get("host")  # Get the Host header
+    if "localhost" not in client_host and "127.0.0.1" not in client_host:
+        app.add_middleware(ApiGatewayAuthMiddleware)
+    
+    response = await call_next(request)
+    return response
 
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
