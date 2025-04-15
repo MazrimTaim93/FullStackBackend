@@ -1,16 +1,17 @@
+import json
 from math import log
+from h11 import Data
+from containers import Container
+from config import settings
+from pydantic import BaseModel
+from containers import Container
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from h11 import Data
-from pydantic import BaseModel
 from controllers import character_controller, login_controller
 from middleware.api_gateway_middleware import ApiGatewayAuthMiddleware
-import json
-from config import settings
 from middleware.auth_middleware import AuthMiddleware
 from fastapi.openapi.utils import get_openapi
 from schemas.message_schema import MessageResponse
-
 
 app = FastAPI()
 
@@ -23,11 +24,15 @@ if settings.app_env == "local":
         allow_methods=["*"],
         allow_headers=["*"]
     )
-else:
+if settings.app_env == "prod":
     app.add_middleware(ApiGatewayAuthMiddleware)
 
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
+
+container = Container()
+app.container = container
+container.wire(modules=["controllers.login_controller"])
 
 @app.get("/", response_model=MessageResponse)
 def read_root():
@@ -90,13 +95,4 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-def verify_login(username: str, password: str) -> bool:
-    try:
-        with open("./db/users.json") as file:
-            data = json.load(file)
-            for user in data["users"]:
-                if user["username"] == username and user["password"] == password:
-                    return True
-    except FileNotFoundError:
-        raise HTTPException(status_code=500, detail="User file not found")
-    return False
+

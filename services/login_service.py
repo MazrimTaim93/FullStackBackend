@@ -44,7 +44,7 @@ class LoginService:
                 "exp": expiration_time,
                 "user": user_payload
             }
-            token = jwt.encode(token_payload, SECRET_KEY, algorithm=ALGORITHM)
+            token = jwt.encode(token_payload, settings.secret_key, algorithm=settings.algorithm)
             return token
 
         except Exception as e:

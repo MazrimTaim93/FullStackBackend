@@ -8,7 +8,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     password_hash = Column(String(512), nullable=False)
 
-def __init__(self, username: str, name: str, password_hash: str):
+    def __init__(self, username: str, name: str, password_hash: str):
         self.username = username
         self.name = name
         self.password_hash = password_hash
