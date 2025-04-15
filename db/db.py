@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from config import settings
 
-
 class DatabaseFactory:
     def __init__(self):
         self.engine = create_engine(settings.database_url)

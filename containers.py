@@ -1,12 +1,12 @@
 from dependency_injector import containers, providers
+from h11 import Data
+from db.db import DatabaseFactory
 from repositories.user_repository import UserRepository
 from services.login_service import LoginService
 
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(modules=["controllers.login_controller", "controllers.character_controller"])
-
-    # Import DatabaseFactory locally within the provider to avoid circular import
-    db_factory = providers.Singleton(lambda: __import__('db.db').DatabaseFactory())
+    db_factory = providers.Singleton(DatabaseFactory)
 
     user_repository = providers.Factory(
         UserRepository,
