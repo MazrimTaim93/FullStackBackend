@@ -1,4 +1,5 @@
 import json
+from sqlalchemy.orm import Session
 from xml.dom.minidom import CharacterData
 from models.character_model import Character
 
@@ -9,36 +10,22 @@ class CharacterRepository:
     def readCharacterByName(self, name: str) -> Character:
         return self.db.query(Character).filter(Character.name == name).first()
 
-    @staticmethod #return a character with a given number
+    #return a character with a given number
     def readCharacterByNumber(self, id: int) -> Character:
         return self.db.query(Character).filter(Character.id == id).first()
 
-    @staticmethod #Take character passed in and add to the database
-    def writeCharacter(newChar: Character) -> None:
+    #write a given character to the database
+    def writeCharacter(self, new_char: Character) -> None:
         try:
-            with open("./db/characters.json", "r") as file:
-                data = json.load(file) #read in file
-                newChar = newChar.model_dump() #turn into json
-                data["characters"].append(newChar) #add to file
+            self.db.add(new_char)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            raise Exception(f"Failed to write character to DB: {str(e)}")
 
-            with open("./db/characters.json", "w") as file:
-                json.dump(data, file, indent = 4) #write to document
-
-        except FileNotFoundError:
-            raise Exception("Character file not found")
-
-    @staticmethod #count the number of characters in the db
-    def getCharCount() -> int:
+    #count the number of characters in the db
+    def getCharCount(self) -> int:
         try:
-            with open("./db/characters.json", "r") as file:
-                try:
-                    data = json.load(file)
-                except json.JSONDecodeError:
-                    raise Exception("Error decoding JSON.")
-                i = 0
-                for char in data["characters"]:
-                    i += 1
-        except FileNotFoundError:
-            raise Exception("Character file not found")
-
-        return i
+            return self.db.query(Character).count()
+        except Exception as e:
+            raise Exception(f"Failed to count characters: {str(e)}")

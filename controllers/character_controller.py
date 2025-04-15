@@ -1,3 +1,5 @@
+from fastapi import Depends
+from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException
 from models.character_model import Character
 from repositories.character_repository import CharacterRepository
@@ -27,7 +29,7 @@ async def countChar(request: CountRequest) -> CountResponse:
         count = CharacterRepository.getCharCount()
         return CountResponse(charCount=count, success=True)
     except Exception as e:
-        #print(f"Character_controller.py/countChar error: {e}")
+        print(f"Character_controller.py/countChar error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/count: {e}")
 
 #take int n and return the nth character in the database

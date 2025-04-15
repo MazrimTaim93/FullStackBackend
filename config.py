@@ -1,10 +1,11 @@
 from pydantic import AnyHttpUrl
+from typing import List
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     app_env: str
-    allow_origins: list[AnyHttpUrl] 
+    allow_origins: List[str]
     api_gateway_token: str
     secret_key: str
     algorithm: str
