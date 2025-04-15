@@ -3,41 +3,15 @@ from xml.dom.minidom import CharacterData
 from models.character_model import Character
 
 class CharacterRepository:
-    @staticmethod #return a character with a given name
-    def readCharacterByName(name: str) -> Character|None:
-        try:
-            with open("./db/characters.json", "r") as file:
-                try:
-                    data = json.load(file)
-                except json.JSONDecodeError:
-                    raise Exception("Error decoding JSON.")
-                for char in data["characters"]:
-                    if char["name"] == name:
-                        return Character(char["name"], char["gender"], 
-                                         char["charClass"], char["ancestry"], char["background"])
-        except FileNotFoundError:
-            raise Exception("Character file not found")
+    def __init__(self, db):
+        self.db = db.get_session()
 
-        return None
+    def readCharacterByName(self, name: str) -> Character:
+        return self.db.query(Character).filter(Character.name == name).first()
 
     @staticmethod #return a character with a given number
-    def readCharacterByNumber(number: int) -> Character|None:
-        try:
-            with open("./db/characters.json", "r") as file:
-                    data = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            #print(f"DEBUG: Error: cannot read characters.json- {e}")
-            raise Exception(f"Error getting Character by number: {e}")
-            
-        print(f"DEBUG: Characters found in JSON file: {len(data["characters"])}")
-        if number < 0 or number >= len(data["characters"]):
-            #print(f"DEBUG: Requested characters index of {number} is out of bounds")
-            return None
-
-        charData = data["characters"][number]
-        #print(f"DEBUG: Retrieved character data: {charData}")
-        return Character(charData["name"], charData["gender"], charData["charClass"], charData["ancestry"], charData["background"])
-
+    def readCharacterByNumber(self, id: int) -> Character:
+        return self.db.query(Character).filter(Character.id == id).first()
 
     @staticmethod #Take character passed in and add to the database
     def writeCharacter(newChar: Character) -> None:
