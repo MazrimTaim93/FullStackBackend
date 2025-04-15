@@ -1,25 +1,33 @@
 import hashlib
 import datetime
 import jwt
+from config import settings
 from repositories.user_repository import UserRepository
 
-#key and algorithm
-SECRET_KEY = "This is my secret key, please don't steal it."
-ALGORITHM = "HS256"
 
 class LoginService:
-    @staticmethod
-    def get_login_token(username: str, password: str) -> str:
+    def __init__(self, user_repository: UserRepository):
+        self.user_repository = user_repository
+    
+    @staticmethod # Decode token
+    def verify_token(token: str) -> dict:
+        try:
+            payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+            return payload
+        except jwt.ExpiredSignatureError:
+            raise Exception("Token has expired")
+        except jwt.InvalidTokenError:
+            raise Exception("Invalid token")
+
+    def get_login_token(self, username: str, password: str) -> str:
         try:
             #get user account by username from loginrepo
-            user = UserRepository.getUser(username)
+            user = self.user_repository.get_user_by_username(username)
             if not user:
                 raise Exception("User not  found")
 
             #check that credentials match
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
-            print(hashed_password)
-            print(user.password_hash)
 
             if user.password_hash != hashed_password:
                 raise Exception("Invalid credentials")
@@ -38,6 +46,7 @@ class LoginService:
             }
             token = jwt.encode(token_payload, SECRET_KEY, algorithm=ALGORITHM)
             return token
+
         except Exception as e:
             print(e)
-            raise
+            raise Exception(f"Login failed: {str(e)}")
