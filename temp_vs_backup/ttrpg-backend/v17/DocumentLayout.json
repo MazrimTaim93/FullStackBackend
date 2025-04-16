@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\containers.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:containers.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\character_controller.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controllers\\character_controller.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\db\\db.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:db\\db.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\character_repository.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:repositories\\character_repository.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\login_controller.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controllers\\login_controller.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\services\\login_service.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:services\\login_service.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\user_repository.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:repositories\\user_repository.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 219,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "db.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\db\\db.py",
+              "RelativeDocumentMoniker": "db\\db.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\db\\db.py",
+              "RelativeToolTip": "db\\db.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T22:27:19.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "containers.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\containers.py",
+              "RelativeDocumentMoniker": "containers.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\containers.py",
+              "RelativeToolTip": "containers.py",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAswA0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T22:14:13.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "login_service.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\services\\login_service.py",
+              "RelativeDocumentMoniker": "services\\login_service.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\services\\login_service.py",
+              "RelativeToolTip": "services\\login_service.py",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T22:13:32.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "user_repository.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\user_repository.py",
+              "RelativeDocumentMoniker": "repositories\\user_repository.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\user_repository.py",
+              "RelativeToolTip": "repositories\\user_repository.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T22:12:26.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "login_controller.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\login_controller.py",
+              "RelativeDocumentMoniker": "controllers\\login_controller.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\login_controller.py",
+              "RelativeToolTip": "controllers\\login_controller.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T22:11:27.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "character_controller.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\character_controller.py",
+              "RelativeDocumentMoniker": "controllers\\character_controller.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\controllers\\character_controller.py",
+              "RelativeToolTip": "controllers\\character_controller.py",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAAAcAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-15T02:07:36.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "character_repository.py",
+              "DocumentMoniker": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\character_repository.py",
+              "RelativeDocumentMoniker": "repositories\\character_repository.py",
+              "ToolTip": "C:\\Users\\hamme\\Documents\\School\\ttrpg\\ttrpg-backend\\repositories\\character_repository.py",
+              "RelativeToolTip": "repositories\\character_repository.py",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAIwBkAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-15T02:02:25.412Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

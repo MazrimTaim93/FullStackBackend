@@ -1,14 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\alembic",
     "\\controllers",
     "\\db",
+    "\\docker",
+    "\\middleware",
     "\\models",
     "\\repositories",
     "\\schemas",
     "\\services"
   ],
-  "SelectedNode": "\\.env",
+  "SelectedNode": "\\main.py",
   "PreviewInSolutionExplorer": false
 }
