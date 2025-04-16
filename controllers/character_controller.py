@@ -5,7 +5,7 @@ from models.character_model import Character
 from repositories.character_repository import CharacterRepository
 from schemas.character_schema import CountRequest, CountResponse, CreateRequest, CreateResponse, GetByNumberRequest, GetByNumberResponse
 
-router = APIRouter(prefix="/api/character", tags=["Creation"])
+router = APIRouter(prefix="/api/character", tags=["Character"])
 
 #Take a set of character variables and ask CharacterRepository to write that character to the database
 @router.post("/create", response_model=CreateResponse)
