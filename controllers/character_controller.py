@@ -1,21 +1,28 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
+from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, HTTPException
 from models.character_model import Character
+from containers import Container
+from schemas import character_schema
+from services import character_service
+from services.character_service import CharacterService
 from repositories.character_repository import CharacterRepository
-from schemas.character_schema import CountRequest, CountResponse, CreateRequest, CreateResponse, GetByNumberRequest, GetByNumberResponse
+from schemas.character_schema import CountRequest, CountResponse, CreateRequest, CreateResponse, GetByNumberRequest, GetByNumberResponse, GetAllCharsRequest, GetAllCharsResponse
 
 router = APIRouter(prefix="/api/character", tags=["Character"])
 
 #Take a set of character variables and ask CharacterRepository to write that character to the database
 @router.post("/create", response_model=CreateResponse)
-async def createChar(character: CreateRequest) -> CreateResponse:
+@inject
+async def createChar(character: CreateRequest,
+                     character_service: CharacterService = Depends(Provide[Container.character_service])) -> CreateResponse:
     try:
         newChar = Character(name=character.name, gender=character.gender, 
                         charClass=character.charClass, ancestry=character.ancestry, 
                         background=character.background)
 
-        CharacterRepository.writeCharacter(newChar)
+        character_service.writeCharacter(newChar)
         return CreateResponse(success=True)
 
     except Exception as e:
@@ -24,20 +31,36 @@ async def createChar(character: CreateRequest) -> CreateResponse:
 
 #ask CharacterRepository to return the number of characters in the database
 @router.post("/count", response_model=CountResponse)
-async def countChar(request: CountRequest) -> CountResponse:
+@inject
+async def countChar(request: CountRequest, 
+                    character_service: CharacterService = Depends(Provide[Container.character_service])) -> CountResponse:
     try:
-        count = CharacterRepository.getCharCount()
+        count = character_service.getCharCount()
         return CountResponse(charCount=count, success=True)
     except Exception as e:
         print(f"Character_controller.py/countChar error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/count: {e}")
 
+#return all characters in the database
+@router.post("/getallchars", response_model=GetAllCharsResponse)
+@inject
+async def getAllChars(request: GetAllCharsRequest, 
+                    character_service: CharacterService = Depends(Provide[Container.character_service])) -> GetByNumberResponse:
+    try:
+        allChars = character_service.getAllChars();
+        return GetAllCharsResponse()
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error in character_controller.py/getallchars: {e}")
+
 #take int n and return the nth character in the database
 @router.post("/getbynum", response_model=GetByNumberResponse)
-async def getByNumber(request: GetByNumberRequest) -> GetByNumberResponse:
+@inject
+async def getByNumber(request: GetByNumberRequest, 
+                    character_service: CharacterService = Depends(Provide[Container.character_service])) -> GetByNumberResponse:
     try:
-        #print(f"DEBUG: Received read request for character number {request.number}")
-        newChar = CharacterRepository.readCharacterByNumber(request.number)
+        print(f"DEBUG: Received read request for character number {request.number}")
+        newChar = character_service.getByNumber(request.number)
         if newChar is None:
             print(f"DEBUG: Character {request.number} not found")
             raise HTTPException(status_code=404, detail="character not found")
@@ -46,5 +69,5 @@ async def getByNumber(request: GetByNumberRequest) -> GetByNumberResponse:
         return GetByNumberResponse(name=newChar.name, gender=newChar.gender, charClass=newChar.charClass, ancestry=newChar.ancestry, background=newChar.background, success=True)
 
     except Exception as e:
-        #print(f"Character_controller.py/getbynum error: {e}")
+        print(f"Character_controller.py/getbynum error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/getbynum: {e}")

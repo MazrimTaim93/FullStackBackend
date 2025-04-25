@@ -14,6 +14,9 @@ from fastapi.openapi.utils import get_openapi
 from schemas.message_schema import MessageResponse
 
 app = FastAPI()
+container = Container()
+app.container = container
+container.wire(modules=["controllers.login_controller", "controllers.character_controller"])
 
 app.add_middleware(AuthMiddleware)
 if settings.app_env == "local":
@@ -30,9 +33,7 @@ if settings.app_env == "prod":
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
 
-container = Container()
-app.container = container
-container.wire(modules=["controllers.login_controller"])
+print(f"DEBUG: Main.py is running.")
 
 @app.get("/", response_model=MessageResponse)
 def read_root():

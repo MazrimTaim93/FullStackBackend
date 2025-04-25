@@ -11,15 +11,19 @@ class AuthMiddleware(BaseHTTPMiddleware):
 		super().__init__(app)
 
 	async def dispatch(self, request: Request, call_next):
-		PUBLIC_PATHS = {"/api/login", "/health", "/openapi.json", "/api/character/count", "api/character/getbynum"}
+		#print(f"DEBUG: authMiddleWare running")
+		PUBLIC_PATHS = {"/api/login", "/health", "/openapi.json", "/api/character/count"}
 		if request.url.path in PUBLIC_PATHS:
 			return await call_next(request)
 
+		#print(f"DEBUG: request headers: {dict(request.headers)}")
 		auth_header = request.headers.get("Authorization")
+		#print(f"DEBUG: raw auth header: {auth_header}")
 		if not auth_header or not auth_header.startswith("Bearer "):
 			return JSONResponse(status_code=401, content={"detail": "invalid authorization token"})
 		
 		token = auth_header.split("Bearer ")[1]
+		#print(f"DEBUG: token: ", token)
 		try:
 			LoginService.verify_token(token)
 		except Exception as e:

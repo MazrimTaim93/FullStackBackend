@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import List
 from models.character_model import Character
 
 class CreateRequest(BaseModel):
@@ -40,3 +40,15 @@ class CountRequest(BaseModel):
 class CountResponse(BaseModel):
     charCount: int
     success: bool
+
+class GetAllCharsRequest(BaseModel):
+    filler: str
+
+class GetAllCharsResponse(BaseModel):
+    characters: List[Character]
+    success: bool
+
+    model_config = {
+        "arbitrary_types_allowed": True
+    }
+

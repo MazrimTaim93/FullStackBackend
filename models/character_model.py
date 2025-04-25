@@ -16,3 +16,13 @@ class Character(Base):
         self.charClass = charClass
         self.ancestry = ancestry
         self.background = background
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "ancestry": self.ancestry,
+            "background": self.background,
+            "charClass": self.charClass,
+            "gender": self.gender,
+        }
