@@ -13,10 +13,14 @@ class CharacterService:
         success = self.character_repository.writeCharacter(newChar)
         return success
 
-    def getAllChars(self):
-        characters = self.character_repository.getAllChars()
-        return characters
-
     def getByNumber(self, id: int):
         character = self.character_repository.readCharacterByNumber(id)
         return character
+
+    def getAll(self):
+        ids = self.character_repository.getAll()
+        return ids
+
+    def deleteCharacter(self, id: int):
+        success = self.character_repository.deleteCharacter(id)
+        return success

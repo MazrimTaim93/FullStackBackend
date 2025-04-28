@@ -3,17 +3,11 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from xml.dom.minidom import CharacterData
 from models.character_model import Character
+from typing import List
 
 class CharacterRepository:
     def __init__(self, db):
         self.db = db.get_session()
-    
-    def readCharacterByName(self, name: str) -> Character:
-        try:
-            return self.db.query(Character).filter(Character.name == name).first()
-        except Exception as e:
-            self.db.rollback()
-            raise Exception(f"Failed to read character {name}: {str(e)}")
 
     #return a character with a given number
     def readCharacterByNumber(self, id: int) -> Character:
@@ -47,11 +41,26 @@ class CharacterRepository:
             self.db.rollback()
             raise Exception(f"Failed to count characters: {str(e)}")
 
-    def getAllChars(self):
+    #delete a character
+    def deleteCharacter(self, id: int) -> bool:
         try:
-            characters = self.db.query(Character).all()
-            return[char.to_dict() for char in characters]
+            character = self.db.query(Character).filter(Character.id == id).first()
+            if character:
+                self.db.delete(character)
+                self.db.commit()
+
         except Exception as e:
-            print(f"Get all chars failed.")
             self.db.rollback()
-            raise Exception(f"Failed to get characters: {str(e)}")
+            print(f"DEBUG: Error deleting character {id}: {str(e)}")
+            raise Exception(f"Failed to delete character {id}: {str(e)}")
+
+    #get all character ids and return a list
+    def getAll(self) -> List[int]:
+        try:
+            ids = self.db.query(Character.id).all()
+            return [id[0] for id in ids]
+
+        except Exception as e:
+            self.db.rollback()
+            print(f"DEBUG: Error getting all characters: {str(e)}")
+            raise Exception(f"Failed to get all characters: {str(e)}")

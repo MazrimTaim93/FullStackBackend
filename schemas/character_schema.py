@@ -13,26 +13,7 @@ class CreateRequest(BaseModel):
     intellect: int
     charisma: int
 
-
 class CreateResponse(BaseModel):
-    success: bool
-
-class GetByNameRequest(BaseModel):
-    name: str
-
-class GetByNameResponse(BaseModel):
-    name: str
-    gender: str
-    charClass: str
-    ancestry: str
-    background: str
-    might: int
-    dexterity: int
-    intellect: int
-    charisma: int
-    fortitude: int
-    reflex: int
-    will: int
     success: bool
 
 class GetByNumberRequest(BaseModel):
@@ -40,6 +21,7 @@ class GetByNumberRequest(BaseModel):
 
 class GetByNumberResponse(BaseModel):
     name: str
+    number: int
     gender: str
     charClass: str
     ancestry: str
@@ -60,14 +42,11 @@ class CountResponse(BaseModel):
     charCount: int
     success: bool
 
-class GetAllCharsRequest(BaseModel):
-    filler: str
+class DeleteRequest(BaseModel):
+    number: int
 
-class GetAllCharsResponse(BaseModel):
-    characters: List[Character]
+class DeleteResponse(BaseModel):
     success: bool
 
-    model_config = {
-        "arbitrary_types_allowed": True
-    }
-
+class GetAllResponse(BaseModel):
+    ids: List[int]

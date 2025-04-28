@@ -8,7 +8,7 @@ from schemas import character_schema
 from services import character_service
 from services.character_service import CharacterService
 from repositories.character_repository import CharacterRepository
-from schemas.character_schema import CountRequest, CountResponse, CreateRequest, CreateResponse, GetByNumberRequest, GetByNumberResponse, GetAllCharsRequest, GetAllCharsResponse
+from schemas.character_schema import CountRequest, CountResponse, CreateRequest, CreateResponse, GetByNumberRequest, GetByNumberResponse, DeleteRequest, DeleteResponse, GetAllResponse
 
 router = APIRouter(prefix="/api/character", tags=["Character"])
 
@@ -32,6 +32,21 @@ async def createChar(character: CreateRequest,
         print(f"Character_controller.py/createChar error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/create: {e}")
 
+#Take a character ID and delete the corresponding character
+@router.post("/delete", response_model=DeleteResponse)
+@inject
+async def deleteChar(character: DeleteRequest,
+                     character_service: CharacterService = Depends(Provide[Container.character_service])) -> DeleteResponse:
+    try:
+        print("DEBUG: character_controller.py received request to delete character.")
+
+        character_service.deleteCharacter(character.number)
+        return DeleteResponse(success=True)
+
+    except Exception as e:
+        print(f"Character_controller.py/deleteChar error: {e}")
+        raise HTTPException(status_code=500, detail=f"Error in character_controller.py/delete: {e}")
+
 #ask CharacterRepository to return the number of characters in the database
 @router.post("/count", response_model=CountResponse)
 @inject
@@ -43,18 +58,6 @@ async def countChar(request: CountRequest,
     except Exception as e:
         print(f"Character_controller.py/countChar error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/count: {e}")
-
-#return all characters in the database
-@router.post("/getallchars", response_model=GetAllCharsResponse)
-@inject
-async def getAllChars(request: GetAllCharsRequest, 
-                    character_service: CharacterService = Depends(Provide[Container.character_service])) -> GetByNumberResponse:
-    try:
-        allChars = character_service.getAllChars();
-        return GetAllCharsResponse()
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error in character_controller.py/getallchars: {e}")
 
 #take int n and return the nth character in the database
 @router.post("/getbynum", response_model=GetByNumberResponse)
@@ -69,8 +72,21 @@ async def getByNumber(request: GetByNumberRequest,
             raise HTTPException(status_code=404, detail="character not found")
 
         #print(f"DEBUG: Found character {request.number}")
-        return GetByNumberResponse(name=newChar.name, gender=newChar.gender, charClass=newChar.charClass, ancestry=newChar.ancestry, background=newChar.background, might=newChar.might, dexterity=newChar.dexterity, intellect=newChar.intellect, charisma=newChar.charisma, fortitude=newChar.fortitude, reflex=newChar.reflex, will=newChar.will, success=True)
+        return GetByNumberResponse(name=newChar.name, number=newChar.id, gender=newChar.gender, charClass=newChar.charClass, ancestry=newChar.ancestry, background=newChar.background, might=newChar.might, dexterity=newChar.dexterity, intellect=newChar.intellect, charisma=newChar.charisma, fortitude=newChar.fortitude, reflex=newChar.reflex, will=newChar.will, success=True)
 
     except Exception as e:
         print(f"Character_controller.py/getbynum error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/getbynum: {e}")
+
+#return a list of all characters in the database
+@router.get("/getall", response_model=GetAllResponse)
+@inject
+async def getAll(character_service: CharacterService = Depends(Provide[Container.character_service])) -> GetByNumberResponse:
+    try:
+        #print(f"DEBUG: Received read request for character number {request.number}")
+        ids = character_service.getAll()
+        return GetAllResponse(ids=ids)
+
+    except Exception as e:
+        print(f"Character_controller.py/getall error: {e}")
+        raise HTTPException(status_code=500, detail=f"Error in character_controller.py/getall: {e}")
