@@ -9,6 +9,7 @@ class CharacterService:
         return count
 
     def writeCharacter(self, newChar) -> bool:
+        print("DEBUG: character_service.py received request to create character.")
         success = self.character_repository.writeCharacter(newChar)
         return success
 

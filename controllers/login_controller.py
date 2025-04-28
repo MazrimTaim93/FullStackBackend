@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/login", tags=["Authentication"])
 @inject
 async def login(login: LoginRequest, 
                 login_service: LoginService = Depends(Provide[Container.login_service])):
-    print(f"Login attempt: {login.username}")
+    #print(f"DEBUG: Login attempt: {login.username}")
     try:
         token = login_service.get_login_token(login.username, login.password)
         return LoginResponse(success=True, jwt_token=token)

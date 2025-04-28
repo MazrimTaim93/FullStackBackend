@@ -33,7 +33,7 @@ if settings.app_env == "prod":
 app.include_router(login_controller.router)
 app.include_router(character_controller.router)
 
-print(f"DEBUG: Main.py is running.")
+#print(f"DEBUG: Main.py is running.")
 
 @app.get("/", response_model=MessageResponse)
 def read_root():

@@ -18,15 +18,18 @@ router = APIRouter(prefix="/api/character", tags=["Character"])
 async def createChar(character: CreateRequest,
                      character_service: CharacterService = Depends(Provide[Container.character_service])) -> CreateResponse:
     try:
+        print("DEBUG: character_controller.py received request to create character.")
         newChar = Character(name=character.name, gender=character.gender, 
                         charClass=character.charClass, ancestry=character.ancestry, 
-                        background=character.background)
+                        background=character.background, might=character.might, 
+                        dexterity=character.dexterity, intellect=character.intellect, 
+                        charisma=character.charisma)
 
         character_service.writeCharacter(newChar)
         return CreateResponse(success=True)
 
     except Exception as e:
-        #print(f"Character_controller.py/createChar error: {e}")
+        print(f"Character_controller.py/createChar error: {e}")
         raise HTTPException(status_code=500, detail=f"Error in character_controller.py/create: {e}")
 
 #ask CharacterRepository to return the number of characters in the database
@@ -59,14 +62,14 @@ async def getAllChars(request: GetAllCharsRequest,
 async def getByNumber(request: GetByNumberRequest, 
                     character_service: CharacterService = Depends(Provide[Container.character_service])) -> GetByNumberResponse:
     try:
-        print(f"DEBUG: Received read request for character number {request.number}")
+        #print(f"DEBUG: Received read request for character number {request.number}")
         newChar = character_service.getByNumber(request.number)
         if newChar is None:
             print(f"DEBUG: Character {request.number} not found")
             raise HTTPException(status_code=404, detail="character not found")
 
         #print(f"DEBUG: Found character {request.number}")
-        return GetByNumberResponse(name=newChar.name, gender=newChar.gender, charClass=newChar.charClass, ancestry=newChar.ancestry, background=newChar.background, success=True)
+        return GetByNumberResponse(name=newChar.name, gender=newChar.gender, charClass=newChar.charClass, ancestry=newChar.ancestry, background=newChar.background, might=newChar.might, dexterity=newChar.dexterity, intellect=newChar.intellect, charisma=newChar.charisma, fortitude=newChar.fortitude, reflex=newChar.reflex, will=newChar.will, success=True)
 
     except Exception as e:
         print(f"Character_controller.py/getbynum error: {e}")

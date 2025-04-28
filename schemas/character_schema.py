@@ -8,6 +8,11 @@ class CreateRequest(BaseModel):
     charClass: str
     ancestry: str
     background: str
+    might: int
+    dexterity: int
+    intellect: int
+    charisma: int
+
 
 class CreateResponse(BaseModel):
     success: bool
@@ -21,6 +26,13 @@ class GetByNameResponse(BaseModel):
     charClass: str
     ancestry: str
     background: str
+    might: int
+    dexterity: int
+    intellect: int
+    charisma: int
+    fortitude: int
+    reflex: int
+    will: int
     success: bool
 
 class GetByNumberRequest(BaseModel):
@@ -32,6 +44,13 @@ class GetByNumberResponse(BaseModel):
     charClass: str
     ancestry: str
     background: str
+    might: int
+    dexterity: int
+    intellect: int
+    charisma: int
+    fortitude: int
+    reflex: int
+    will: int
     success: bool
 
 class CountRequest(BaseModel):
